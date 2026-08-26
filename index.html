@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MEGDA — an interactive genealogy from the EU AI Act to a proposed democratic governance layer for artificial intelligence.">
+<title>MEGDA — Genealogy from the AI Act</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --ink:#10162A;
+    --panel:#171F38;
+    --panel-raised:#1E2947;
+    --hairline:#2C3860;
+    --paper:#EFE9DA;
+    --text:#E4E1D6;
+    --text-dim:#9AA0BE;
+    --gold:#C9A24B;
+    --gold-dim:#8C7538;
+    --teal:#4FA6A0;
+    --rose:#C1495B;
+    --slate:#6C7699;
+    --blue:#6888C9;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--ink);}
+  body{
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    color:var(--text);
+    padding:0 0 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+  button,select{font:inherit}
+  button:focus-visible, select:focus-visible, .card:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  header{
+    padding:56px 24px 40px;
+    max-width:980px;
+    margin:0 auto;
+    border-bottom:1px solid var(--hairline);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-optical-sizing:auto;
+    font-weight:500;
+    font-size:clamp(30px,5vw,48px);
+    line-height:1.08;
+    margin:0 0 16px;
+    letter-spacing:-.01em;
+    max-width:820px;
+  }
+  h1 em{font-style:italic;color:var(--gold);}
+  .lede{
+    font-size:15.5px;
+    line-height:1.65;
+    color:var(--text-dim);
+    max-width:760px;
+    margin:0;
+  }
+  .lede strong{color:var(--text);font-weight:600;}
+
+  .legend-strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 18px;
+    margin-top:26px;
+  }
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--text-dim);
+  }
+  .dot{width:8px;height:8px;border-radius:50%;flex:none;}
+
+  .controls{
+    max-width:980px;
+    margin:0 auto;
+    padding:26px 24px 14px;
+    position:sticky;
+    top:0;
+    background:linear-gradient(var(--ink) 82%, rgba(16,22,42,.96));
+    z-index:5;
+    border-bottom:1px solid rgba(44,56,96,.45);
+  }
+  .control-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .control-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .control-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--slate);
+    width:100%;
+    margin-bottom:2px;
+  }
+  .chip{
+    font-size:12.5px;
+    font-weight:500;
+    min-height:38px;
+    padding:7px 13px;
+    border-radius:999px;
+    border:1px solid var(--hairline);
+    background:var(--panel);
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--slate);color:var(--text);}
+  .chip.active{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:#1A1406;
+    font-weight:600;
+  }
+  .chip.active.pillar-scientific{background:var(--teal);border-color:var(--teal);color:#06211F;}
+  .chip.active.pillar-democratic{background:var(--rose);border-color:var(--rose);color:#2B0B10;}
+
+  main{max-width:980px;margin:0 auto;padding:26px 24px 0;}
+  .summary{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .metric{
+    border:1px solid var(--hairline);
+    background:var(--panel);
+    padding:12px 14px;
+    border-radius:4px;
+  }
+  .metric strong{
+    font-family:'Fraunces',serif;
+    font-size:24px;
+    font-weight:500;
+    display:block;
+  }
+  .metric span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--text-dim);
+  }
+
+  .count-line{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--slate);
+    margin-bottom:18px;
+  }
+  .grid{display:flex;flex-direction:column;gap:14px;}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:4px;
+    padding:20px 22px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .card:hover{border-color:var(--slate);background:var(--panel-raised);}
+  .card.hidden{display:none;}
+  .card.original{border-style:dashed;border-color:var(--gold-dim);}
+
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:10px;
+  }
+  .art-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--gold);
+    letter-spacing:.03em;
+  }
+  .art-tag.is-original{color:var(--text-dim);font-style:italic;}
+  .status-mark{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:4px 8px;
+    border-radius:3px;
+    border:1px solid var(--hairline);
+    color:var(--text-dim);
+    flex:none;
+    text-align:right;
+  }
+  .status-direct{color:var(--teal);border-color:var(--teal);}
+  .status-amend{color:var(--gold);border-color:var(--gold-dim);}
+  .status-parallel{color:var(--rose);border-color:var(--rose);}
+
+  .card h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:19px;
+    margin:0 0 10px;
+    line-height:1.3;
+  }
+  .clause{
+    font-size:14px;
+    line-height:1.62;
+    color:var(--text-dim);
+    margin:0 0 12px;
+  }
+  .redline{
+    font-size:14px;
+    line-height:1.62;
+    margin:0;
+    padding:12px 14px;
+    border-left:3px solid var(--gold);
+    background:rgba(201,162,75,.07);
+    border-radius:0 3px 3px 0;
+  }
+  .redline.k-scientific{border-left-color:var(--teal);background:rgba(79,166,160,.08);}
+  .redline.k-democratic{border-left-color:var(--rose);background:rgba(193,73,91,.08);}
+  .redline .insert{
+    text-decoration:underline;
+    text-decoration-style:solid;
+    text-underline-offset:2px;
+    color:var(--paper);
+    font-weight:500;
+  }
+  .redline .arrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--slate);
+    display:block;
+    margin-bottom:5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+  }
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+  .tag-pill{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    padding:3px 8px;
+    border-radius:3px;
+    background:var(--panel-raised);
+    color:var(--text-dim);
+    border:1px solid var(--hairline);
+  }
+
+  .detail{display:none;margin-top:14px;}
+  .card.open .detail{display:block;}
+  .detail-inner{
+    padding-top:14px;
+    border-top:1px solid var(--hairline);
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--text-dim);
+  }
+  .detail-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:14px;
+  }
+  .detail-box{
+    border:1px solid var(--hairline);
+    padding:12px;
+    border-radius:3px;
+    background:rgba(30,41,71,.4);
+  }
+  .detail-box h4{
+    margin:0 0 6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .detail-box p{margin:0;color:var(--text-dim);}
+  .toggle-hint{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    color:var(--slate);
+    margin-top:12px;
+    letter-spacing:.05em;
+  }
+
+  .route{
+    max-width:980px;
+    margin:42px auto 0;
+    padding:0 24px;
+  }
+  .route h2{
+    font-family:'Fraunces',serif;
+    font-size:26px;
+    font-weight:500;
+    margin:0 0 8px;
+  }
+  .route-intro{color:var(--text-dim);font-size:14px;line-height:1.6;max-width:720px;}
+  .route-flow{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    margin-top:20px;
+  }
+  .route-node{
+    min-width:0;
+    border:1px solid var(--hairline);
+    background:var(--panel);
+    padding:13px 12px;
+    border-radius:4px;
+  }
+  .route-node b{display:block;font-size:13px;margin-bottom:5px;}
+  .route-node span{font-size:11px;color:var(--text-dim);line-height:1.4;display:block;}
+  .route-arrow{display:none}
+
+  footer{
+    max-width:980px;
+    margin:48px auto 0;
+    padding:28px 24px 0;
+    border-top:1px solid var(--hairline);
+  }
+  footer p{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--text-dim);
+    max-width:760px;
+  }
+  footer .roadmap{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--gold);
+    margin-top:14px;
+  }
+  .source-links a{color:var(--teal);text-decoration:none}
+  .source-links a:hover{text-decoration:underline}
+
+  @media (max-width:760px){
+    .summary{grid-template-columns:1fr 1fr;}
+    .route-flow{grid-template-columns:1fr;}
+    .route-node{position:relative;}
+    .detail-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){
+    header{padding:40px 18px 30px;}
+    .controls{padding:22px 18px 12px;}
+    main{padding:22px 18px 0;}
+    .route{padding:0 18px;}
+    footer{padding:24px 18px 0;}
+    .card-top{flex-direction:column;gap:8px;}
+    .status-mark{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Regulation (EU) 2024/1689 — structural reading</div>
+  <h1>Where MEGDA comes from: <em>thirteen legal anchors and extensions</em>.</h1>
+  <p class="lede">
+    MEGDA does not invent its vocabulary from nothing. Its mechanisms begin with duties already present in the AI Act:
+    human oversight, fundamental-rights assessment, registration, independent expertise, complaints, explanations,
+    post-market monitoring and risk intervention.
+    <strong>MEGDA changes their constitutional function:</strong> it turns scattered regulatory duties into a proposed
+    separation of technological powers. Open any provision to see the current rule, the gap, the MEGDA extension,
+    the likely legal vehicle and the institution that could carry it.
+  </p>
+  <div class="legend-strip">
+    <span class="legend-item"><span class="dot" style="background:var(--gold)"></span>Legal key</span>
+    <span class="legend-item"><span class="dot" style="background:var(--teal)"></span>Scientific key</span>
+    <span class="legend-item"><span class="dot" style="background:var(--rose)"></span>Democratic key</span>
+    <span class="legend-item"><span class="dot" style="background:var(--slate)"></span>Cross-cutting</span>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="control-grid">
+    <div class="control-row">
+      <div class="control-label">Filter by pillar</div>
+      <button type="button" class="chip active" data-group="pillar" data-value="all">All 13</button>
+      <button type="button" class="chip" data-group="pillar" data-value="scientific">🔬 Scientific</button>
+      <button type="button" class="chip" data-group="pillar" data-value="legal">⚖️ Legal</button>
+      <button type="button" class="chip" data-group="pillar" data-value="democratic">🗳️ Democratic</button>
+      <button type="button" class="chip" data-group="pillar" data-value="transparency">👁️ Transparency</button>
+      <button type="button" class="chip" data-group="pillar" data-value="brake">⛔ Brake</button>
+      <button type="button" class="chip" data-group="pillar" data-value="human">👤 Human accountability</button>
+      <button type="button" class="chip" data-group="pillar" data-value="institutional">🏛️ Institutional map</button>
+    </div>
+    <div class="control-row">
+      <div class="control-label">Filter by legal path</div>
+      <button type="button" class="chip active" data-group="status" data-value="all">All paths</button>
+      <button type="button" class="chip" data-group="status" data-value="direct">Build from current Act</button>
+      <button type="button" class="chip" data-group="status" data-value="amend">AI Act amendment</button>
+      <button type="button" class="chip" data-group="status" data-value="parallel">Parallel / new instrument</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="summary" aria-label="MEGDA summary metrics">
+    <div class="metric"><strong id="metricVisible">13</strong><span>visible provisions</span></div>
+    <div class="metric"><strong>3</strong><span>constitutional keys</span></div>
+    <div class="metric"><strong>2</strong><span>MEGDA-original pillars</span></div>
+    <div class="metric"><strong>5</strong><span>institutional routes</span></div>
+  </section>
+
+  <div class="count-line" id="countLine" aria-live="polite"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<section class="route">
+  <div class="eyebrow">Adoption logic</div>
+  <h2>Do not send MEGDA to one gatekeeper.</h2>
+  <p class="route-intro">
+    The implementation path mirrors the governance principle itself: distribute initiative across institutions so no single actor
+    can bury, own or neutralise the proposal.
+  </p>
+  <div class="route-flow">
+    <div class="route-node"><b>1 — Civic coalition</b><span>Academia, civil society, labour, SMEs, researchers and citizens.</span></div>
+    <div class="route-node"><b>2 — Parliament</b><span>IMCO/LIBE working structures, hearings, own-initiative work and legislative pressure.</span></div>
+    <div class="route-node"><b>3 — Member States</b><span>National governments and competent authorities create Council-side pressure.</span></div>
+    <div class="route-node"><b>4 — Citizen route</b><span>European Citizens' Initiative or other participatory channels build bottom-up legitimacy.</span></div>
+    <div class="route-node"><b>5 — Commission</b><span>Convergence point for legislative proposal, implementation and AI Office governance.</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    Two MEGDA components — the <strong>Public Compute Commons</strong> and <strong>Systemic AI Power</strong> —
+    have no direct textual anchor in the AI Act. The Commons belongs mainly to EuroHPC and EU industrial/infrastructure policy;
+    Systemic AI Power belongs closer to competition law, the Digital Markets Act and strategic-infrastructure governance.
+  </p>
+  <p>
+    This is a policy-design and legal-architecture prototype, not legal advice. Article descriptions are deliberately concise and
+    should be read alongside the official consolidated text.
+  </p>
+  <p class="source-links">
+    Official source:
+    <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng" target="_blank" rel="noopener noreferrer">
+      consolidated AI Act — 27 July 2026
+    </a>
+  </p>
+  <p class="roadmap">current article → gap → MEGDA extension → legal vehicle → target institution</p>
+</footer>
+
+<script>
+const DATA = [
+  {
+    id:"art6", article:"Art. 6", title:"The entry gate", status:"amend",
+    pillars:["institutional"],
+    clause:"Defines when an AI system is treated as high-risk, including through the use cases listed in Annex III.",
+    extract:"Replace a mostly threshold-based regulatory gate with a graduated constitutional-impact model: more societal power means more oversight.",
+    detail:"MEGDA's A/B/C/D impact scale does not exist in the AI Act. It extends the Act's risk-based logic by adding a separate question: not only how risky is the system, but how much structural power does its use create over people or institutions?",
+    vehicle:"Amend the AI Act's risk-classification and deployment-governance layer, or add a dedicated democratic-impact chapter.",
+    target:"European Commission proposal; European Parliament (especially IMCO/LIBE); Council of the EU."
+  },
+  {
+    id:"art14", article:"Art. 14", title:"Human oversight", status:"amend",
+    pillars:["human"],
+    clause:"High-risk systems must be designed so natural persons can effectively supervise them, understand relevant limitations and, where appropriate, disregard, override or reverse outputs.",
+    extract:"The algorithmic output must never become sovereign. MEGDA scales human oversight from an operator-level safeguard into an institutional principle of contestability.",
+    detail:"This is one of MEGDA's strongest legal anchors. The AI Act focuses on oversight by designated natural persons. MEGDA generalises the same principle: high-impact algorithmic power must remain contestable by accountable institutions and affected people.",
+    vehicle:"Targeted AI Act amendment plus sector-specific procedural rights where automated decisions affect legal or comparable interests.",
+    target:"Commission; Parliament; Council; sectoral regulators and courts."
+  },
+  {
+    id:"art26", article:"Art. 26", title:"Deployer duties", status:"amend",
+    pillars:["brake","human"],
+    clause:"Deployers of high-risk systems have operational duties, including assigning human oversight and reacting when system use may create regulated risks.",
+    extract:"One legal seed of MEGDA's STOP function: the duty to react becomes a distributed emergency-review mechanism.",
+    detail:"MEGDA's 2-of-4 suspension design does not exist in the Act. It would distribute the trigger across scientific, regulatory and civic actors while leaving final coercive action and judicial review within lawful public institutions.",
+    vehicle:"AI Act amendment defining a Union-level emergency-review trigger and its procedural safeguards.",
+    target:"Commission; Parliament; Council; AI Office; national market-surveillance authorities."
+  },
+  {
+    id:"art27", article:"Art. 27", title:"The democratic hinge", status:"amend",
+    pillars:["legal","democratic"],
+    clause:"Requires a fundamental-rights impact assessment for specified deployments of certain high-risk systems, including analysis of affected persons, risks, oversight and mitigation.",
+    extract:"The Act says: assess rights impacts. MEGDA adds: above a democratic-impact threshold, affected communities gain a structured role in that assessment.",
+    detail:"This is the cleanest bridge from rights assessment to democratic participation. MEGDA would not ask citizens to certify technical safety; it would give them procedural standing on legitimacy, purpose, acceptable trade-offs and conditions of deployment.",
+    vehicle:"Amend Art. 27 or add a linked article creating a Democratic Impact Assessment for designated high-impact public uses.",
+    target:"Commission; Parliament (LIBE/IMCO); Council; Fundamental Rights Agency and national rights bodies as expert contributors."
+  },
+  {
+    id:"art49_71", article:"Art. 49 + 71", title:"From registry to public ledger", status:"amend",
+    pillars:["transparency"],
+    clause:"The Act provides registration duties for specified AI systems and establishes an EU database for high-risk AI systems.",
+    extract:"Turn registration into an accountability ledger: who built it, who uses it, for what purpose, what audits exist, what incidents occurred, who is accountable and how a person can challenge its use.",
+    detail:"MEGDA does not require publishing model weights or trade secrets by default. It distinguishes transparency about power and accountability from unconditional disclosure of proprietary technical assets.",
+    vehicle:"AI Act amendment and Commission implementing rules for a richer public-data schema.",
+    target:"Commission / AI Office; Member States; European Parliament for the legislative mandate."
+  },
+  {
+    id:"art64_68", article:"Art. 64–68", title:"The embryo of a separation of powers", status:"amend",
+    pillars:["institutional","democratic","scientific"],
+    clause:"The governance chapter establishes the AI Office, the European AI Board, the Advisory Forum and the Scientific Panel of independent experts.",
+    extract:"The multipolar architecture already exists. MEGDA adds the missing civic pole and gives participation limited procedural power instead of purely advisory weight.",
+    detail:"The Advisory Forum already includes industry, start-ups, SMEs, civil society and academia; the Scientific Panel is required to be independent from providers. MEGDA would add a sortition-based Citizens' AI Assembly and define interfaces between these bodies rather than merging them.",
+    vehicle:"AI Act governance-chapter amendment, potentially supported by implementing acts for procedures that do not require primary legislative change.",
+    target:"Commission / AI Office; European Parliament; Council; AI Board; Advisory Forum."
+  },
+  {
+    id:"art72_73", article:"Art. 72–73", title:"Oversight after deployment", status:"amend",
+    pillars:["brake"],
+    clause:"The Act requires post-market monitoring for high-risk systems and reporting of serious incidents.",
+    extract:"Authorisation is not a permanent blank cheque: deployment becomes a continuous loop of monitoring, incident disclosure, review and possible restriction.",
+    detail:"MEGDA makes lifecycle oversight legible to the public and links incident signals to civic and scientific review channels, rather than treating monitoring as a provider-to-regulator pipeline only.",
+    vehicle:"AI Act amendment plus implementing standards for public incident summaries and review triggers.",
+    target:"Commission / AI Office; market-surveillance authorities; Parliament and Council."
+  },
+  {
+    id:"art79", article:"Art. 79", title:"Where the brake comes from", status:"amend",
+    pillars:["brake","legal"],
+    clause:"Where a market-surveillance authority has sufficient reason to consider an AI system to present a regulated risk, it evaluates the system and its compliance.",
+    extract:"The Act already has risk → authority → evaluation → intervention. MEGDA adds plural trigger routes → temporary review status → independent verification → reasoned decision.",
+    detail:"MEGDA should not let an unelected civic body unilaterally ban systems. The civic component triggers review; coercive suspension remains legally bounded, time-limited and reviewable.",
+    vehicle:"AI Act amendment specifying multi-source triggers and temporary precautionary measures.",
+    target:"Commission; Parliament; Council; national market-surveillance authorities; courts for review."
+  },
+  {
+    id:"art84", article:"Art. 84", title:"Independent verification infrastructure", status:"direct",
+    pillars:["scientific"],
+    clause:"The Commission designates Union AI testing support structures, which can provide independent technical or scientific advice to the Board, Commission or market-surveillance authorities.",
+    extract:"The scientific-key principle already has a foothold: whoever builds a system should not be the only actor able to establish that it is safe.",
+    detail:"This is the component that can be developed furthest without rewriting the whole Act: expand capacity, common methods, conflict-of-interest rules, transparency of findings and routes for qualified external requests.",
+    vehicle:"Implementation, procurement, funding and Commission/AI Office procedures within the existing legal framework, with amendments only for stronger access rights.",
+    target:"Commission / AI Office; AI Board; market-surveillance authorities; Union testing structures."
+  },
+  {
+    id:"art85", article:"Art. 85", title:"The citizen can already act", status:"amend",
+    pillars:["legal","democratic"],
+    clause:"Any natural or legal person with grounds to consider that the Regulation has been infringed may submit a complaint to the relevant market-surveillance authority.",
+    extract:"Keep 1 person → complaint, then add a second pathway: a qualified collective signal → mandatory systemic review.",
+    detail:"The collective trigger is a MEGDA addition. It should be designed carefully to prevent both frivolous mass-triggering and institutional gatekeeping: verified thresholds, qualified civil-society routes and reasoned admissibility decisions are possible safeguards.",
+    vehicle:"AI Act amendment creating collective or qualified systemic-review triggers.",
+    target:"Commission; Parliament; Council; market-surveillance authorities; recognised civil-society organisations."
+  },
+  {
+    id:"art86", article:"Art. 86", title:"The right to know why", status:"amend",
+    pillars:["legal","human"],
+    clause:"Under defined conditions, an affected person can obtain clear and meaningful explanations of the role of certain high-risk AI systems in an individual decision and of the main elements of that decision.",
+    extract:"Explanation becomes the first rung of a ladder: explanation → human review → contestation → collective challenge where the same system affects a class of people.",
+    detail:"The ladder is partly aspirational: Art. 86 is narrower than a universal right to human review. MEGDA would therefore need explicit procedural rights rather than presenting all four rungs as already guaranteed by the Act.",
+    vehicle:"AI Act amendment and coordination with GDPR, administrative-procedure rules and sectoral law.",
+    target:"Commission; Parliament; Council; data-protection and sectoral authorities; courts."
+  },
+  {
+    id:"pcc", article:"MEGDA-original", title:"Public Compute Commons", status:"parallel", original:true,
+    pillars:[],
+    clause:"No direct textual basis in the AI Act.",
+    extract:"Create public-interest compute capacity so research, SMEs, public institutions and civil-society projects are not structurally dependent on a handful of private infrastructure gatekeepers.",
+    detail:"This is an infrastructure and industrial-policy intervention, not primarily a product-safety rule. Its strongest existing institutional home is EuroHPC and related EU compute initiatives.",
+    vehicle:"EuroHPC / EU infrastructure and industrial-policy instruments; potentially a dedicated governance regulation for public-interest compute access.",
+    target:"Commission; EuroHPC Joint Undertaking; Parliament; Council; participating Member States."
+  },
+  {
+    id:"sap", article:"MEGDA-original", title:"Systemic AI Power", status:"parallel", original:true,
+    pillars:[],
+    clause:"No direct textual basis in the AI Act.",
+    extract:"Measure concentrated power across compute, data, models, distribution and essential-service integration — not only conventional product-market share.",
+    detail:"This is MEGDA's antitrust/constitutional-economic layer. It asks whether control over several AI bottlenecks creates systemic power even when no single conventional market definition captures the whole structure.",
+    vehicle:"Competition-law policy, DMA evolution and/or a new regulation on systemic AI infrastructure power.",
+    target:"European Commission competition and digital-policy services; Parliament; Council; competition authorities."
+  }
+];
+
+const PILLAR_COLOR = {scientific:"k-scientific", democratic:"k-democratic"};
+function pillarLabel(p){
+  return {
+    scientific:"🔬 scientific", legal:"⚖️ legal", democratic:"🗳️ democratic",
+    transparency:"👁️ transparency", brake:"⛔ brake", human:"👤 human accountability",
+    institutional:"🏛️ institutional"
+  }[p] || p;
+}
+function statusLabel(s){
+  return {
+    direct:"Build from current Act",
+    amend:"AI Act amendment",
+    parallel:"Parallel / new instrument"
+  }[s];
+}
+function statusClass(s){
+  return {direct:"status-direct",amend:"status-amend",parallel:"status-parallel"}[s];
+}
+
+const grid = document.getElementById('grid');
+const countLine = document.getElementById('countLine');
+const metricVisible = document.getElementById('metricVisible');
+let activePillar = "all";
+let activeStatus = "all";
+
+function render(){
+  grid.innerHTML = "";
+  DATA.forEach(item=>{
+    const redlineClass = item.pillars.map(p=>PILLAR_COLOR[p]).find(Boolean) || "";
+    const card = document.createElement('article');
+    card.className = "card" + (item.original ? " original" : "");
+    card.dataset.pillars = item.pillars.join(",");
+    card.dataset.status = item.status;
+    card.tabIndex = 0;
+    card.setAttribute("role","button");
+    card.setAttribute("aria-expanded","false");
+
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="art-tag ${item.original ? 'is-original' : ''}">${item.article}</span>
+        <span class="status-mark ${statusClass(item.status)}">${statusLabel(item.status)}</span>
+      </div>
+      <h3>${item.title}</h3>
+      <p class="clause">${item.clause}</p>
+      <div class="redline ${redlineClass}">
+        <span class="arrow">MEGDA extension</span>
+        <span class="insert">${item.extract}</span>
+      </div>
+      <div class="tags">
+        ${item.pillars.map(p=>`<span class="tag-pill">${pillarLabel(p)}</span>`).join("") || `<span class="tag-pill">no direct AI Act anchor</span>`}
+      </div>
+      <div class="toggle-hint">open legal route ↓</div>
+      <div class="detail">
+        <div class="detail-inner">
+          <p>${item.detail}</p>
+          <div class="detail-grid">
+            <div class="detail-box">
+              <h4>Likely legal vehicle</h4>
+              <p>${item.vehicle}</p>
+            </div>
+            <div class="detail-box">
+              <h4>Primary institutional targets</h4>
+              <p>${item.target}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    function toggle(){
+      const open = card.classList.toggle('open');
+      card.setAttribute("aria-expanded", String(open));
+      card.querySelector(".toggle-hint").textContent = open ? "close legal route ↑" : "open legal route ↓";
+    }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', e=>{
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toggle(); }
+    });
+    grid.appendChild(card);
+  });
+  applyFilters();
+}
+
+function applyFilters(){
+  let visible = 0;
+  document.querySelectorAll('.card').forEach(card=>{
+    const pillars = card.dataset.pillars.split(",").filter(Boolean);
+    const matchPillar = activePillar === "all" || pillars.includes(activePillar);
+    const matchStatus = activeStatus === "all" || card.dataset.status === activeStatus;
+    const show = matchPillar && matchStatus;
+    card.classList.toggle('hidden', !show);
+    if(show) visible++;
+  });
+  countLine.textContent = `Showing ${visible} of ${DATA.length} provisions / extensions`;
+  metricVisible.textContent = visible;
+}
+
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    const group = chip.dataset.group;
+    document.querySelectorAll(`.chip[data-group="${group}"]`).forEach(c=>{
+      c.classList.remove('active','pillar-scientific','pillar-democratic');
+    });
+    chip.classList.add('active');
+    if(chip.dataset.value === "scientific") chip.classList.add('pillar-scientific');
+    if(chip.dataset.value === "democratic") chip.classList.add('pillar-democratic');
+
+    if(group === "pillar") activePillar = chip.dataset.value;
+    if(group === "status") activeStatus = chip.dataset.value;
+    applyFilters();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
