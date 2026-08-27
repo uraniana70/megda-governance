@@ -98,7 +98,9 @@ The first working drafts translate the governance principles identified in the A
 
 * **[Article 86a — Effective Human Review and Contestation of High-Impact AI Decisions](proposal/04-article-86a-effective-human-review.md)**  
   Establishes the Legal Key: a right to genuine human reconsideration of significant AI-mediated decisions, with accountable reviewers, procedural time limits, interim safeguards, reasoned outcomes and escalation of systemic patterns.
-
+  
+* **[Article 27c — Three-Key Authorisation for High-Impact AI Deployments](proposal/05-article-27c-three-key-authorisation.md)**  
+  Connects the Democratic, Scientific and Legal Keys into a single prior-authorisation framework for designated high-impact AI deployments, with institutional separation, conditional approval, cross-key escalation and public authorisation records.
 
 ### Core principle
 
