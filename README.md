@@ -92,6 +92,10 @@ The first working drafts translate the governance principles identified in the A
 
 * **[Article 27b — AI-Assisted Democratic Consultation and Deliberative Transparency](proposal/02-article-27b-ai-assisted-democratic-consultation.md)**
   Defines how AI may accelerate large-scale democratic consultation while preserving minority views, traceability, human validation and political plurality.
+  
+* **[Article 84a — Independent Scientific Verification for High-Impact AI Deployments](proposal/03-article-84a-scientific-verification.md)**
+  Establishes the Scientific Key: independent verification of material technical claims, proportionate technical access, qualified scientific challenges, conflict-of-interest safeguards and a public scientific verification statement.
+
 
 ### Core principle
 
