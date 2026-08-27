@@ -85,7 +85,9 @@ The adoption strategy mirrors that principle: MEGDA should not depend on a singl
 
 MEGDA is now moving from structural analysis to legislative design.
 
-The first working drafts translate the governance principles identified in the AI Act genealogy into proposed legal provisions:
+The first working drafts translate the governance principles identified in the AI Act genealogy into proposed legal provisions: 
+
+**Articles 27a, 84a and 86a establish the Democratic, Scientific and Legal Keys; Article 27b makes democratic participation scalable; Article 27c connects the three Keys into a prior-authorisation framework.**
 
 * **[Article 27a — Democratic Impact Assessment for High-Impact AI Deployments](proposal/01-article-27a-democratic-impact-assessment.md)**
   Introduces a democratic-impact test, structured public participation, proportional consultation timelines, public challenge and pre-deployment review.
