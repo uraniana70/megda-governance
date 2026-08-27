@@ -104,6 +104,9 @@ The first working drafts translate the governance principles identified in the A
 * **[Article 27c — Three-Key Authorisation for High-Impact AI Deployments](proposal/05-article-27c-three-key-authorisation.md)**  
   Connects the Democratic, Scientific and Legal Keys into a single prior-authorisation framework for designated high-impact AI deployments, with institutional separation, conditional approval, cross-key escalation and public authorisation records.
 
+* **[Article 79a — Distributed Emergency Review and Temporary Suspension](proposal/06-article-79a-emergency-review.md)**  
+  Establishes the distributed emergency brake: multiple independent actors may trigger scrutiny, while binding suspension remains with competent public authorities, subject to proportionality, transparency and review.
+
 ### Core principle
 
 > **AI-assisted deliberation shall reduce informational complexity, not political plurality.**
