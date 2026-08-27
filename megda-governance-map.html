@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MEGDA — Governance Map</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --ink:#10162A;
+    --panel:#171F38;
+    --panel-raised:#1E2947;
+    --hairline:#2C3860;
+    --paper:#EFE9DA;
+    --text:#E4E1D6;
+    --text-dim:#9AA0BE;
+    --gold:#C9A24B;
+    --gold-dim:#8C7538;
+    --teal:#4FA6A0;
+    --rose:#C1495B;
+    --slate:#6C7699;
+    --signal:#D6694A;
+    --ok:#58B26B;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--text)}
+  body{
+    font-family:'IBM Plex Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 64px;
+  }
+
+  header{
+    max-width:1200px;
+    margin:0 auto;
+    padding:56px 24px 32px;
+    border-bottom:1px solid var(--hairline);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    color:var(--gold);
+    font-size:11px;
+    margin-bottom:14px;
+  }
+  h1{
+    margin:0 0 14px;
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(30px,5vw,48px);
+    line-height:1.05;
+  }
+  h1 em{color:var(--gold);font-style:italic}
+  .lede{
+    max-width:760px;
+    color:var(--text-dim);
+    font-size:16px;
+    line-height:1.65;
+  }
+  .lede strong{color:var(--text)}
+
+  .legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    margin-top:24px;
+  }
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--text-dim);
+  }
+  .swatch{width:10px;height:10px;border-radius:50%;flex:none}
+
+  main{
+    max-width:1200px;
+    margin:0 auto;
+    padding:28px 24px 0;
+    display:grid;
+    grid-template-columns:minmax(0, 1.4fr) minmax(320px, .8fr);
+    gap:22px;
+  }
+
+  .map-wrap{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:8px;
+    padding:22px;
+  }
+
+  .section-title{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--slate);
+    font-size:11px;
+    margin-bottom:14px;
+  }
+
+  .lane{
+    position:relative;
+    padding:8px 0 18px;
+  }
+  .lane + .lane{
+    margin-top:14px;
+    border-top:1px solid var(--hairline);
+    padding-top:22px;
+  }
+
+  .grid-4{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:14px;
+  }
+  .grid-1{display:grid;grid-template-columns:1fr;gap:14px;max-width:440px;margin:0 auto}
+
+  .flow-arrows{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0,1fr));
+    gap:14px;
+    margin:8px 0 14px;
+    align-items:center;
+  }
+  .arrow-col{
+    display:flex;
+    justify-content:center;
+    color:var(--slate);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:18px;
+  }
+  .arrow-down{
+    display:flex;
+    justify-content:center;
+    color:var(--slate);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:20px;
+    margin:6px 0 12px;
+  }
+
+  .article-card{
+    background:var(--panel-raised);
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    padding:14px 14px 13px;
+    min-height:154px;
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    position:relative;
+  }
+  .article-card:hover{transform:translateY(-2px);border-color:var(--slate)}
+  .article-card.active{box-shadow:0 0 0 1px currentColor inset, 0 0 0 2px rgba(255,255,255,.02); background:#212D4D}
+  .article-card.dim{opacity:.45}
+
+  .article-card[data-key="democratic"]{color:var(--rose)}
+  .article-card[data-key="scientific"]{color:var(--teal)}
+  .article-card[data-key="legal"]{color:var(--gold)}
+  .article-card[data-key="integration"]{color:#8AA0FF}
+  .article-card[data-key="emergency"]{color:var(--signal)}
+
+  .article-card .topline{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:8px;
+    align-items:flex-start;
+  }
+  .art-no{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.04em;
+    color:currentColor;
+  }
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--text-dim);
+    border:1px solid var(--hairline);
+    padding:3px 6px;
+    border-radius:999px;
+  }
+  .article-card h3{
+    color:var(--text);
+    font-size:17px;
+    line-height:1.3;
+    margin:0 0 8px;
+    font-family:'Fraunces',serif;
+    font-weight:500;
+  }
+  .article-card p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:13.5px;
+    line-height:1.55;
+  }
+  .card-foot{
+    margin-top:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    color:var(--slate);
+  }
+
+  .bridge-note{
+    background:rgba(201,162,75,.07);
+    border-left:3px solid var(--gold);
+    padding:12px 14px;
+    border-radius:0 4px 4px 0;
+    color:var(--text-dim);
+    font-size:13.5px;
+    line-height:1.6;
+    margin:4px 0 14px;
+  }
+  .bridge-note strong{color:var(--paper)}
+
+  aside{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:8px;
+    padding:18px;
+  }
+  .panel h2{
+    margin:0 0 12px;
+    font-family:'Fraunces',serif;
+    font-size:25px;
+    font-weight:500;
+  }
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .meta span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    color:var(--text-dim);
+    border:1px solid var(--hairline);
+    background:var(--panel-raised);
+    padding:4px 7px;
+    border-radius:999px;
+  }
+  .panel p{
+    color:var(--text-dim);
+    font-size:14px;
+    line-height:1.65;
+    margin:0 0 12px;
+  }
+  .panel p strong{color:var(--text)}
+  .bullet-list{margin:10px 0 0;padding-left:18px;color:var(--text-dim)}
+  .bullet-list li{margin:0 0 8px;line-height:1.55}
+
+  .mini-sequence{
+    display:grid;
+    gap:10px;
+  }
+  .mini-step{
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    padding:10px 12px;
+    background:var(--panel-raised);
+  }
+  .mini-step strong{display:block;color:var(--paper);margin-bottom:4px}
+  .mini-step span{color:var(--text-dim);font-size:13px;line-height:1.5}
+
+  .site-link-box{
+    background:rgba(79,166,160,.08);
+    border-left:3px solid var(--teal);
+    border-radius:0 4px 4px 0;
+    padding:12px 14px;
+    color:var(--text-dim);
+    font-size:13.5px;
+    line-height:1.6;
+  }
+
+  footer{
+    max-width:1200px;
+    margin:22px auto 0;
+    padding:0 24px;
+  }
+  .footer-note{
+    border-top:1px solid var(--hairline);
+    padding-top:18px;
+    color:var(--text-dim);
+    font-size:13px;
+    line-height:1.65;
+  }
+
+  @media (max-width: 980px){
+    main{grid-template-columns:1fr}
+  }
+  @media (max-width: 760px){
+    header{padding:40px 18px 26px}
+    main{padding:22px 18px 0}
+    footer{padding:0 18px}
+    .grid-4{grid-template-columns:1fr 1fr}
+    .flow-arrows{grid-template-columns:1fr 1fr 1fr 1fr}
+  }
+  @media (max-width: 540px){
+    .grid-4{grid-template-columns:1fr}
+    .flow-arrows{display:none}
+    .article-card{min-height:unset}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">MEGDA module — governance architecture</div>
+    <h1>The MEGDA governance map: <em>how six articles interact</em></h1>
+    <p class="lede">
+      This module turns the legislative proposals into a readable institutional flow. It shows what happens
+      <strong>before deployment</strong>, what must converge for <strong>authorisation</strong>, and what happens
+      <strong>after deployment if something goes wrong</strong>. Click any article to inspect its role in the architecture.
+    </p>
+    <div class="legend">
+      <span class="legend-item"><span class="swatch" style="background:var(--rose)"></span>Democratic key</span>
+      <span class="legend-item"><span class="swatch" style="background:var(--teal)"></span>Scientific key</span>
+      <span class="legend-item"><span class="swatch" style="background:var(--gold)"></span>Legal key</span>
+      <span class="legend-item"><span class="swatch" style="background:#8AA0FF"></span>Integration / authorisation</span>
+      <span class="legend-item"><span class="swatch" style="background:var(--signal)"></span>Emergency brake</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="map-wrap">
+      <div class="section-title">Governance flow</div>
+
+      <div class="lane">
+        <div class="section-title">Before deployment — the keys are prepared</div>
+        <div class="bridge-note">
+          <strong>27a, 84a and 86a</strong> establish the Democratic, Scientific and Legal Keys.
+          <strong>27b</strong> makes democratic participation scalable rather than slow and unreadable.
+        </div>
+        <div class="grid-4" id="top-grid">
+          <div class="article-card active" data-article="27a" data-key="democratic">
+            <div class="topline">
+              <span class="art-no">Article 27a</span>
+              <span class="tag">Democratic Key</span>
+            </div>
+            <h3>Democratic Impact Assessment</h3>
+            <p>Creates structured public participation, proportional consultation and pre-deployment democratic review.</p>
+            <div class="card-foot">Who is affected? What are the stakes? Is the deployment proportionate?</div>
+          </div>
+          <div class="article-card" data-article="27b" data-key="democratic">
+            <div class="topline">
+              <span class="art-no">Article 27b</span>
+              <span class="tag">Democratic support</span>
+            </div>
+            <h3>AI-Assisted Democratic Consultation</h3>
+            <p>Uses AI to accelerate consultation and synthesis while preserving pluralism, traceability and human validation.</p>
+            <div class="card-foot">Parallel scrutiny, not deliberative automation.</div>
+          </div>
+          <div class="article-card" data-article="84a" data-key="scientific">
+            <div class="topline">
+              <span class="art-no">Article 84a</span>
+              <span class="tag">Scientific Key</span>
+            </div>
+            <h3>Independent Scientific Verification</h3>
+            <p>Tests material technical claims through independent verification, qualified challenges and public scientific statements.</p>
+            <div class="card-foot">Can the evidence support the system's claimed performance?</div>
+          </div>
+          <div class="article-card" data-article="86a" data-key="legal">
+            <div class="topline">
+              <span class="art-no">Article 86a</span>
+              <span class="tag">Legal Key</span>
+            </div>
+            <h3>Effective Human Review</h3>
+            <p>Guarantees meaningful human reconsideration, accountable reviewers, interim safeguards and reasoned outcomes.</p>
+            <div class="card-foot">Can people challenge and reverse consequential decisions?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lane">
+        <div class="section-title">Authorisation — the keys converge</div>
+        <div class="flow-arrows">
+          <div class="arrow-col">↓</div>
+          <div class="arrow-col">↓</div>
+          <div class="arrow-col">↓</div>
+          <div class="arrow-col">↓</div>
+        </div>
+        <div class="grid-1">
+          <div class="article-card" data-article="27c" data-key="integration">
+            <div class="topline">
+              <span class="art-no">Article 27c</span>
+              <span class="tag">Three-Key Rule</span>
+            </div>
+            <h3>Three-Key Authorisation</h3>
+            <p>Connects the Democratic, Scientific and Legal Keys into one prior-authorisation framework for designated high-impact deployments.</p>
+            <div class="card-foot">No high-impact deployment proceeds if a required key is missing.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lane">
+        <div class="section-title">After deployment — emergency correction</div>
+        <div class="arrow-down">↓</div>
+        <div class="grid-1">
+          <div class="article-card" data-article="79a" data-key="emergency">
+            <div class="topline">
+              <span class="art-no">Article 79a</span>
+              <span class="tag">Emergency Brake</span>
+            </div>
+            <h3>Distributed Emergency Review</h3>
+            <p>Allows multiple independent actors to trigger scrutiny while keeping binding suspension powers in competent public authorities.</p>
+            <div class="card-foot">Signal → mandatory review → coercive suspension.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside>
+      <section class="panel" id="detail-panel">
+        <h2 id="detail-title">Article 27a — Democratic Impact Assessment</h2>
+        <div class="meta" id="detail-meta"></div>
+        <p id="detail-summary"></p>
+        <p id="detail-function"></p>
+        <ul class="bullet-list" id="detail-points"></ul>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">Sequence at a glance</div>
+        <div class="mini-sequence">
+          <div class="mini-step">
+            <strong>1. Build the keys</strong>
+            <span>27a creates democratic scrutiny, 84a creates scientific scrutiny, and 86a creates legal contestability. 27b helps scale democratic consultation.</span>
+          </div>
+          <div class="mini-step">
+            <strong>2. Converge the keys</strong>
+            <span>27c requires the relevant keys to be independently satisfied before designated high-impact AI deployments may proceed.</span>
+          </div>
+          <div class="mini-step">
+            <strong>3. Reopen the system if needed</strong>
+            <span>79a distributes trigger power for emergency review when serious incidents, new evidence or civic challenges show that a key may have failed.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">Suggested site integration</div>
+        <div class="site-link-box">
+          Add this file as a second static page — for example <strong>governance-map.html</strong> — and place a link to it from the main README and from the homepage of the prototype.
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <footer>
+    <p class="footer-note">
+      Design principle: <strong>no actor should simultaneously control the creation, authorisation, verification and contestability of high-impact AI.</strong>
+      The map is a governance-architecture explainer based on the current MEGDA redlines, not a substitute for legal text.
+    </p>
+  </footer>
+
+<script>
+const DATA = {
+  "27a": {
+    title: "Article 27a — Democratic Impact Assessment",
+    meta: ["democratic key", "before deployment", "participation"],
+    summary: "Article 27a establishes the democratic gate for high-impact AI deployments. It requires a structured assessment of who is affected, what social and institutional effects are likely, and whether deployment is proportionate in light of rights, risks and public legitimacy.",
+    function: "In MEGDA, this is the article that asks whether the deployment is democratically acceptable before it becomes normalised. It prevents a high-impact system from being treated as a purely technical procurement question.",
+    points: [
+      "Creates a democratic-impact test and pre-deployment review.",
+      "Requires meaningful public participation rather than provider self-assessment alone.",
+      "Feeds the Democratic Key into Article 27c.",
+      "Can be reopened through Article 79a if real-world effects differ from what was originally assessed."
+    ],
+    related: ["27b","27c","79a"]
+  },
+  "27b": {
+    title: "Article 27b — AI-Assisted Democratic Consultation",
+    meta: ["democratic support", "scalability", "deliberation"],
+    summary: "Article 27b enables faster and more intelligible consultation processes by allowing AI-assisted synthesis, classification and multilingual processing, while preserving traceability, human validation and minority viewpoints.",
+    function: "Its role is not to replace politics with automation. Its role is to make democratic participation workable at scale, so that time pressure is not always used as an argument against participation.",
+    points: [
+      "Reduces informational overload, not political plurality.",
+      "Supports Article 27a by making large consultations manageable.",
+      "Improves timeliness without collapsing dissenting views into false consensus.",
+      "Provides a template for AI-assisted governance that remains subordinate to human judgment."
+    ],
+    related: ["27a","27c"]
+  },
+  "84a": {
+    title: "Article 84a — Independent Scientific Verification",
+    meta: ["scientific key", "evidence", "verification"],
+    summary: "Article 84a creates the Scientific Key. It requires independent verification of the technical claims that matter for deployment, including challenge pathways, access safeguards and a public scientific verification statement.",
+    function: "This article ensures that the provider and deployer are not the only actors able to say whether a high-impact system works as claimed. It institutionalises adversarial evidence.",
+    points: [
+      "Creates an independent route for testing material technical claims.",
+      "Allows qualified scientific challenges where claims are questionable.",
+      "Feeds the Scientific Key into Article 27c.",
+      "Can be accelerated under Article 79a during urgent review."
+    ],
+    related: ["27c","79a"]
+  },
+  "86a": {
+    title: "Article 86a — Effective Human Review and Contestation",
+    meta: ["legal key", "remedy", "reviewability"],
+    summary: "Article 86a establishes the Legal Key by guaranteeing that significant AI-mediated decisions remain reviewable by accountable humans with authority to reconsider, modify or reverse the outcome.",
+    function: "It translates abstract accountability into a practical right. MEGDA treats explainability as insufficient on its own: a person must also be able to seek a meaningful human reconsideration.",
+    points: [
+      "Guarantees real, not symbolic, human review.",
+      "Connects explanation, review, contestation and systemic escalation.",
+      "Feeds the Legal Key into Article 27c.",
+      "Repeated successful challenges can trigger renewed scientific or emergency review."
+    ],
+    related: ["27c","79a"]
+  },
+  "27c": {
+    title: "Article 27c — Three-Key Authorisation",
+    meta: ["integration", "prior authorisation", "institutional separation"],
+    summary: "Article 27c is the constitutional hinge of MEGDA. It connects the Democratic, Scientific and Legal Keys into one prior-authorisation rule for designated high-impact deployments.",
+    function: "Its purpose is to prevent a high-impact deployment from proceeding just because one dimension of oversight has been satisfied. The keys are complementary, not interchangeable.",
+    points: [
+      "No designated high-impact deployment proceeds if a required key is missing.",
+      "Requires functionally independent procedures rather than a single super-authority.",
+      "Allows conditional approval, pilot authorisation and re-authorisation after material change.",
+      "Links directly to Article 79a when a key fails after deployment."
+    ],
+    related: ["27a","27b","84a","86a","79a"]
+  },
+  "79a": {
+    title: "Article 79a — Distributed Emergency Review",
+    meta: ["emergency brake", "after deployment", "temporary suspension"],
+    summary: "Article 79a creates MEGDA's emergency brake. It distributes trigger power across several credible actors while keeping coercive suspension in the hands of competent public authorities.",
+    function: "The article answers a basic governance question: who can force the system to look when the ordinary gatekeeper does not want to look? Its answer is distributed triggering without unaccountable veto power.",
+    points: [
+      "Many actors may raise a signal, but only competent authorities impose binding suspension.",
+      "Supports rapid evidence preservation and accelerated scientific assessment.",
+      "Can reopen the Democratic, Scientific or Legal Key depending on the failure involved.",
+      "Creates a public emergency record and protects good-faith reporters."
+    ],
+    related: ["27a","84a","86a","27c"]
+  }
+};
+
+const cards = document.querySelectorAll('.article-card');
+const titleEl = document.getElementById('detail-title');
+const metaEl = document.getElementById('detail-meta');
+const summaryEl = document.getElementById('detail-summary');
+const functionEl = document.getElementById('detail-function');
+const pointsEl = document.getElementById('detail-points');
+
+function renderDetail(id){
+  const item = DATA[id];
+  titleEl.textContent = item.title;
+  metaEl.innerHTML = item.meta.map(m => `<span>${m}</span>`).join('');
+  summaryEl.innerHTML = `<strong>What it does:</strong> ${item.summary}`;
+  functionEl.innerHTML = `<strong>Why it matters:</strong> ${item.function}`;
+  pointsEl.innerHTML = item.points.map(p => `<li>${p}</li>`).join('');
+
+  cards.forEach(card => {
+    const cid = card.dataset.article;
+    const active = cid === id;
+    const related = item.related.includes(cid);
+    card.classList.toggle('active', active);
+    card.classList.toggle('dim', !(active || related));
+  });
+}
+
+cards.forEach(card => {
+  card.addEventListener('click', () => renderDetail(card.dataset.article));
+});
+
+renderDetail('27a');
+</script>
+</body>
+</html>
