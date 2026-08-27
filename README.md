@@ -96,6 +96,9 @@ The first working drafts translate the governance principles identified in the A
 * **[Article 84a — Independent Scientific Verification for High-Impact AI Deployments](proposal/03-article-84a-scientific-verification.md)**
   Establishes the Scientific Key: independent verification of material technical claims, proportionate technical access, qualified scientific challenges, conflict-of-interest safeguards and a public scientific verification statement.
 
+* **[Article 86a — Effective Human Review and Contestation of High-Impact AI Decisions](proposal/04-article-86a-effective-human-review.md)**  
+  Establishes the Legal Key: a right to genuine human reconsideration of significant AI-mediated decisions, with accountable reviewers, procedural time limits, interim safeguards, reasoned outcomes and escalation of systemic patterns.
+
 
 ### Core principle
 
