@@ -81,6 +81,26 @@ The adoption strategy mirrors that principle: MEGDA should not depend on a singl
 ├── LICENSE
 └── .gitignore
 ```
+## Legislative Proposals
+
+MEGDA is now moving from structural analysis to legislative design.
+
+The first working drafts translate the governance principles identified in the AI Act genealogy into proposed legal provisions:
+
+* **[Article 27a — Democratic Impact Assessment for High-Impact AI Deployments](proposal/01-article-27a-democratic-impact-assessment.md)**
+  Introduces a democratic-impact test, structured public participation, proportional consultation timelines, public challenge and pre-deployment review.
+
+* **[Article 27b — AI-Assisted Democratic Consultation and Deliberative Transparency](proposal/02-article-27b-ai-assisted-democratic-consultation.md)**
+  Defines how AI may accelerate large-scale democratic consultation while preserving minority views, traceability, human validation and political plurality.
+
+### Core principle
+
+> **AI-assisted deliberation shall reduce informational complexity, not political plurality.**
+
+These texts are working drafts intended to evolve through legal review, public discussion and institutional feedback.
+
+→ **[Open the MEGDA legislative proposal directory](proposal/)**
+```
 
 ## Suggested next modules
 
