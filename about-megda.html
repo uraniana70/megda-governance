@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="What MEGDA is, why it exists, and how it combines democratic responsibility with AI-assisted public decision-making." />
+<title>About MEGDA — Model for European Governance of Democratic AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --ink:#10162A;
+    --panel:#171F38;
+    --panel-raised:#1E2947;
+    --hairline:#2C3860;
+    --paper:#EFE9DA;
+    --text:#E4E1D6;
+    --text-dim:#9AA0BE;
+    --gold:#C9A24B;
+    --teal:#4FA6A0;
+    --rose:#C1495B;
+    --slate:#6C7699;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{margin:0;padding:0;background:var(--ink);color:var(--text)}
+  body{
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:72px;
+  }
+  a{color:inherit}
+  a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  .shell{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  .topbar{
+    border-bottom:1px solid var(--hairline);
+    background:rgba(16,22,42,.96);
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter:blur(10px);
+  }
+  .topbar-inner{
+    max-width:1040px;
+    margin:0 auto;
+    padding:12px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+  }
+  .brand{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--gold);
+    text-decoration:none;
+  }
+  .nav{display:flex;flex-wrap:wrap;gap:8px}
+  .nav a{
+    text-decoration:none;
+    font-size:12px;
+    color:var(--text-dim);
+    border:1px solid var(--hairline);
+    padding:7px 10px;
+    border-radius:999px;
+  }
+  .nav a:hover{color:var(--text);border-color:var(--slate)}
+
+  header{
+    padding:64px 0 42px;
+    border-bottom:1px solid var(--hairline);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:14px;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin-top:0;
+  }
+  h1{
+    font-size:clamp(34px,6vw,58px);
+    line-height:1.03;
+    max-width:900px;
+    margin-bottom:18px;
+    letter-spacing:-.015em;
+  }
+  h1 em{color:var(--gold);font-style:italic}
+  .lede{
+    font-size:17px;
+    line-height:1.7;
+    color:var(--text-dim);
+    max-width:820px;
+    margin:0;
+  }
+  .lede strong{color:var(--text)}
+
+  .quick{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+    margin-top:28px;
+  }
+  .quick-card{
+    border:1px solid var(--hairline);
+    background:var(--panel);
+    border-radius:6px;
+    padding:16px;
+  }
+  .quick-card b{
+    display:block;
+    font-size:13px;
+    margin-bottom:6px;
+  }
+  .quick-card span{
+    color:var(--text-dim);
+    font-size:13px;
+    line-height:1.5;
+  }
+
+  main{padding-top:38px}
+  section{
+    padding:34px 0;
+    border-bottom:1px solid var(--hairline);
+  }
+  section:last-of-type{border-bottom:0}
+  h2{
+    font-size:clamp(26px,4vw,36px);
+    margin-bottom:14px;
+  }
+  h3{
+    font-size:21px;
+    margin-bottom:8px;
+  }
+  p{
+    color:var(--text-dim);
+    font-size:15px;
+    line-height:1.72;
+    margin:0 0 14px;
+    max-width:850px;
+  }
+  p strong{color:var(--text)}
+
+  .principles{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+    margin-top:20px;
+  }
+  .principle{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    padding:18px;
+  }
+  .principle .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.12em;
+    color:var(--gold);
+    margin-bottom:8px;
+  }
+  .principle p{font-size:13.5px;margin:0}
+
+  .keys{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+    margin-top:20px;
+  }
+  .key{
+    border-radius:6px;
+    padding:18px;
+    border:1px solid var(--hairline);
+    background:var(--panel);
+  }
+  .key.democratic{border-top:3px solid var(--rose)}
+  .key.scientific{border-top:3px solid var(--teal)}
+  .key.legal{border-top:3px solid var(--gold)}
+  .key small{
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--text-dim);
+    font-size:9.5px;
+  }
+  .key h3{margin-top:8px}
+  .key p{font-size:13.5px;margin:0}
+
+  blockquote{
+    margin:22px 0 0;
+    padding:16px 18px;
+    background:rgba(201,162,75,.07);
+    border-left:3px solid var(--gold);
+    color:var(--paper);
+    font-family:'Fraunces',serif;
+    font-size:20px;
+    line-height:1.5;
+    max-width:880px;
+  }
+
+  .human-machine{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:18px;
+  }
+  .hm-card{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:6px;
+    padding:18px;
+  }
+  .hm-card ul{
+    margin:10px 0 0;
+    padding-left:20px;
+    color:var(--text-dim);
+  }
+  .hm-card li{margin:0 0 8px;line-height:1.55}
+
+  .not-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    margin-top:18px;
+  }
+  .not-item{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:5px;
+    padding:13px 14px;
+    color:var(--text-dim);
+    font-size:13.5px;
+    line-height:1.5;
+  }
+  .not-item strong{color:var(--text)}
+
+  .cta{
+    margin-top:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .btn{
+    display:inline-block;
+    text-decoration:none;
+    padding:11px 15px;
+    border-radius:4px;
+    border:1px solid var(--hairline);
+    background:var(--panel);
+    color:var(--text);
+    font-size:13px;
+    font-weight:600;
+  }
+  .btn.primary{background:var(--gold);border-color:var(--gold);color:#1A1406}
+  .btn:hover{transform:translateY(-1px)}
+
+  footer{
+    border-top:1px solid var(--hairline);
+    margin-top:24px;
+    padding-top:20px;
+  }
+  footer p{font-size:12.5px;max-width:900px}
+
+  @media(max-width:760px){
+    .quick,.principles,.keys{grid-template-columns:1fr}
+    .human-machine,.not-grid{grid-template-columns:1fr}
+    .topbar-inner{align-items:flex-start;flex-direction:column}
+    header{padding-top:46px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">MEGDA</a>
+    <nav class="nav" aria-label="MEGDA navigation">
+      <a href="index.html">AI Act genealogy</a>
+      <a href="megda-governance-map.html">Governance Map</a>
+    </nav>
+  </div>
+</div>
+
+<header>
+  <div class="shell">
+    <div class="eyebrow">Model for European Governance of Democratic AI</div>
+    <h1>What is <em>MEGDA</em>?</h1>
+    <p class="lede">
+      MEGDA is a policy-design proposal for using artificial intelligence to improve public decision-making
+      <strong>without allowing either machines or institutions to become unaccountable centres of power.</strong>
+      It starts from the belief that AI can reduce administrative friction, help institutions deal with complexity
+      and make democratic processes faster — while final responsibility remains human, visible and contestable.
+    </p>
+
+    <div class="quick" aria-label="MEGDA in thirty seconds">
+      <div class="quick-card">
+        <b>AI should reduce friction.</b>
+        <span>Use machines to process complexity, duplication and information overload.</span>
+      </div>
+      <div class="quick-card">
+        <b>Efficiency is not legitimacy.</b>
+        <span>A faster answer is not automatically a lawful, fair or democratic decision.</span>
+      </div>
+      <div class="quick-card">
+        <b>Power must remain separated.</b>
+        <span>No single actor should build, verify, authorise and judge challenges to the same high-impact system.</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+  <section id="thirty-seconds">
+    <div class="eyebrow">30 seconds</div>
+    <h2>MEGDA in one idea</h2>
+    <p>
+      Many public systems are not slow because every delay protects a right. They are often slow because information is fragmented,
+      procedures are repetitive, institutions do not communicate efficiently and large quantities of evidence are difficult for human beings to process in reasonable time.
+    </p>
+    <p>
+      Artificial intelligence can help reduce that friction. But if the same technology is introduced without democratic safeguards,
+      it can also make decisions harder to contest and concentrate institutional power.
+    </p>
+    <blockquote>
+      The purpose is not to place democracy under technological control. It is to give democracy better tools for governing complexity without surrendering human responsibility.
+    </blockquote>
+  </section>
+
+  <section id="three-minutes">
+    <div class="eyebrow">3 minutes</div>
+    <h2>The underlying idea</h2>
+
+    <div class="principles">
+      <article class="principle">
+        <div class="num">01 — COMPLEXITY</div>
+        <h3>Complexity is not protection.</h3>
+        <p>
+          A process that takes months is not automatically more democratic because it is slow. Where delay comes from fragmented information,
+          duplication or administrative opacity, AI can shorten the process without removing legal safeguards.
+        </p>
+      </article>
+
+      <article class="principle">
+        <div class="num">02 — EFFICIENCY</div>
+        <h3>Efficiency is not legitimacy.</h3>
+        <p>
+          A system that produces an answer in seconds should not automatically be entitled to make the decision. Speed does not replace rights,
+          responsibility, context or political judgment.
+        </p>
+      </article>
+
+      <article class="principle">
+        <div class="num">03 — POWER</div>
+        <h3>Technological power should be separated.</h3>
+        <p>
+          The actor that builds an AI system should not also be the only actor able to verify it, authorise it, interpret its effects and decide whether challenges against it are valid.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="human-machine">
+    <div class="eyebrow">Human + machine</div>
+    <h2>Cooperation, not substitution</h2>
+    <p>
+      MEGDA does not begin from the question “How do we control AI?”. It begins from a different question:
+      <strong>how do we prevent AI from becoming another instrument through which power becomes concentrated, opaque and difficult to contest?</strong>
+    </p>
+
+    <div class="human-machine">
+      <article class="hm-card">
+        <h3>Machines can help with</h3>
+        <ul>
+          <li>processing large volumes of information;</li>
+          <li>comparing documents, rules and evidence;</li>
+          <li>detecting recurring patterns and inconsistencies;</li>
+          <li>translating and organising public contributions;</li>
+          <li>supporting monitoring and procedural coordination;</li>
+          <li>reducing the cognitive burden of complex administrative systems.</li>
+        </ul>
+      </article>
+
+      <article class="hm-card">
+        <h3>Humans remain responsible for</h3>
+        <ul>
+          <li>determining acceptable social trade-offs;</li>
+          <li>interpreting rights and legal responsibility;</li>
+          <li>evaluating consequences in context;</li>
+          <li>preserving minority and dissenting positions;</li>
+          <li>deciding when a decision should be reversed;</li>
+          <li>being publicly answerable for the exercise of power.</li>
+        </ul>
+      </article>
+    </div>
+
+    <blockquote>
+      Automate administrative complexity where possible. Do not automate political responsibility.
+    </blockquote>
+  </section>
+
+  <section id="three-keys">
+    <div class="eyebrow">The architecture</div>
+    <h2>Three questions, three independent keys</h2>
+    <p>
+      For high-impact uses, MEGDA separates technical evidence, legal responsibility and democratic legitimacy.
+      The keys are complementary, but they are not interchangeable.
+    </p>
+
+    <div class="keys">
+      <article class="key democratic">
+        <small>Democratic Key</small>
+        <h3>Is this use legitimate?</h3>
+        <p>Who is affected? Is the use proportionate? Were affected communities meaningfully heard? Can the decision be publicly contested?</p>
+      </article>
+
+      <article class="key scientific">
+        <small>Scientific Key</small>
+        <h3>Does the evidence hold?</h3>
+        <p>Are the material technical claims independently verified, sufficiently representative and reproducible under relevant conditions?</p>
+      </article>
+
+      <article class="key legal">
+        <small>Legal Key</small>
+        <h3>Who is responsible?</h3>
+        <p>Is the use lawful, attributable to identifiable actors and subject to meaningful explanation, human review, complaint and remedy?</p>
+      </article>
+    </div>
+
+    <div class="cta">
+      <a class="btn primary" href="megda-governance-map.html">Explore the Governance Map →</a>
+      <a class="btn" href="index.html">See the AI Act genealogy</a>
+    </div>
+  </section>
+
+  <section id="why-democracy">
+    <div class="eyebrow">Why democracy?</div>
+    <h2>Public institutions are not automatically self-correcting</h2>
+    <p>
+      MEGDA does not assume that an institution is sufficiently democratic simply because it is public. Contestability must be built into the architecture itself.
+    </p>
+    <p>
+      Citizens can raise challenges. Independent scientists can question technical claims. Human reviewers can overturn AI-mediated decisions.
+      Authorities must explain why systems continue operating. Serious new signals can reopen an authorisation that was previously granted.
+    </p>
+    <p>
+      The objective is not permanent institutional suspicion. It is to ensure that <strong>no important exercise of algorithmic power becomes invisible, unanswerable or effectively irreversible.</strong>
+    </p>
+  </section>
+
+  <section id="what-it-is-not">
+    <div class="eyebrow">What MEGDA is not</div>
+    <h2>A governance model should also define its limits</h2>
+
+    <div class="not-grid">
+      <div class="not-item"><strong>Not AI governing citizens.</strong> AI supports processes; it does not acquire democratic sovereignty.</div>
+      <div class="not-item"><strong>Not a central authority controlling all AI.</strong> MEGDA deliberately separates oversight functions.</div>
+      <div class="not-item"><strong>Not continuous surveillance.</strong> Accountability does not require turning institutions or citizens into permanent objects of monitoring.</div>
+      <div class="not-item"><strong>Not rule by experts.</strong> Scientific verification cannot substitute democratic legitimacy or legal responsibility.</div>
+      <div class="not-item"><strong>Not mass consultation on every decision.</strong> Participation should be proportional to the impact and nature of the use.</div>
+      <div class="not-item"><strong>Not a claim of finality.</strong> MEGDA is a policy-design proposal intended to be criticised, stress-tested and improved.</div>
+    </div>
+  </section>
+
+  <section id="why-now">
+    <div class="eyebrow">Why now?</div>
+    <h2>Better tools for institutions facing more complexity</h2>
+    <p>
+      Administrative complexity can protect rights when it creates due process, evidence and accountability. But complexity can also become simple friction:
+      duplicated requests, unreadable documentation, disconnected databases, repetitive checks and delays that make responsibility harder rather than easier to locate.
+    </p>
+    <p>
+      MEGDA starts from the possibility that human institutions and machine capabilities can complement each other. AI can help make complex systems more legible and faster;
+      democratic governance can ensure that this new capacity does not become a new form of coercion.
+    </p>
+
+    <blockquote>
+      AI-assisted deliberation shall reduce informational complexity, not political plurality.
+    </blockquote>
+  </section>
+
+  <section id="next">
+    <div class="eyebrow">Explore MEGDA</div>
+    <h2>From the idea to the legal architecture</h2>
+    <p>
+      This page explains the premise. The next layers show how that premise becomes an institutional model and then a set of legislative proposals built from identifiable anchors in the EU AI Act.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="megda-governance-map.html">Open the Governance Map →</a>
+      <a class="btn" href="index.html">Open the AI Act genealogy</a>
+    </div>
+  </section>
+</main>
+
+<footer class="shell">
+  <p>
+    MEGDA is a policy-design and legal-architecture project. It is not legal advice and does not claim that its proposed mechanisms already exist in current EU law.
+    The project distinguishes between existing legal anchors and proposed extensions, and is intended for further legal, technical and democratic review.
+  </p>
+</footer>
+
+</body>
+</html>
