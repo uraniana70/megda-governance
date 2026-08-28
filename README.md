@@ -71,11 +71,21 @@ The visualisation is a policy and legal-architecture prototype. Its article desc
 
 The adoption strategy mirrors that principle: MEGDA should not depend on a single institutional gatekeeper. It is conceived as a proposal that can be advanced through Parliament, Member States, civil society, citizen participation, independent authorities and the Commission in parallel.
 
+## About MEGDA
+
+MEGDA — Model for European Governance of Democratic AI — is a policy-design proposal for using artificial intelligence to improve public decision-making while preserving democratic responsibility, transparency and contestability.
+
+- **[Read: What is MEGDA?](https://uraniana70.github.io/megda-governance/about-megda.html)**  
+  A non-technical introduction to the project, its name, its principles, the human–machine relationship and the democratic rationale behind the model.
+
 ## Repository structure
 
 ```text
 .
+├── proposal/
 ├── index.html
+├── about-megda.html
+├── megda-governance-map.html
 ├── README.md
 ├── SOURCES.md
 ├── LICENSE
