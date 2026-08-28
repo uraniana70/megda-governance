@@ -9,7 +9,7 @@ This repository contains an interactive structural reading of Regulation (EU) 20
 - a **democratic key** — structured civic participation in high-impact uses;
 - a **public accountability ledger**;
 - a **distributed emergency-review mechanism**;
-- **human contestability** for significant AI-mediated decisions;
+- **human contestability** for significant AI-mediated decisions;-
 - two MEGDA-original structural proposals: **Public Compute Commons** and **Systemic AI Power**.
 
 ## What the site does
