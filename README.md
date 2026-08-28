@@ -84,7 +84,7 @@ The adoption strategy mirrors that principle: MEGDA should not depend on a singl
 ## Interactive Governance Map
 
 Explore how the MEGDA governance architecture works as a system:
-- **[Open the interactive MEGDA Governance Map](megda-governance-map.html)**
+- **[Open the interactive MEGDA Governance Map](https://uraniana70.github.io/megda-governance/megda-governance-map.html)**
   Visualises how Articles 27a, 27b, 84a, 86a, 27c and 79a interact across democratic scrutiny, scientific verification, legal contestability, prior authorisation and emergency review
 
 ## Legislative Proposals
