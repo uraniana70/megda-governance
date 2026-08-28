@@ -78,7 +78,8 @@ MEGDA — Model for European Governance of Democratic AI — is a policy-design 
 - **[Read: What is MEGDA?](https://uraniana70.github.io/megda-governance/about-megda.html)**  
   A non-technical introduction to the project, its name, its principles, the human–machine relationship and the democratic rationale behind the model.
 
-## Repository structure
+## Repository structure 
+
 
 ```text
 .
@@ -86,6 +87,7 @@ MEGDA — Model for European Governance of Democratic AI — is a policy-design 
 ├── index.html
 ├── about-megda.html
 ├── megda-governance-map.html
+├── megda-security-stress-test.html
 ├── README.md
 ├── SOURCES.md
 ├── LICENSE
@@ -96,6 +98,13 @@ MEGDA — Model for European Governance of Democratic AI — is a policy-design 
 Explore how the MEGDA governance architecture works as a system:
 - **[Open the interactive MEGDA Governance Map](https://uraniana70.github.io/megda-governance/megda-governance-map.html)**
   Visualises how Articles 27a, 27b, 84a, 86a, 27c and 79a interact across democratic scrutiny, scientific verification, legal contestability, prior authorisation and emergency review
+
+  ## Security Stress Test
+
+MEGDA is also designed to be challenged from an operational security perspective.
+
+- **[Open the MEGDA Security Stress Test](https://uraniana70.github.io/megda-governance/megda-security-stress-test.html)**  
+  Five practical questions for security professionals on single points of failure, capture of the Three Keys, escalation triggers, audit evidence and emergency suspension.
 
 ## Legislative Proposals
 
