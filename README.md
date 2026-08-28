@@ -161,4 +161,14 @@ Publication of MEGDA does not imply the assignment of authorship or ownership be
 
 ## Licence
 
-MIT for the code in this repository. EU legislation and official institutional materials remain subject to their own legal terms and are not relicensed by this project.
+This repository uses a dual-licensing approach.
+
+- **Source code** is licensed under the MIT License, unless otherwise stated.
+- **Original MEGDA policy texts, governance models, diagrams, explanatory materials and research content** are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International licence (CC BY-NC-SA 4.0), unless otherwise stated.
+- EU legislation, official institutional documents and other third-party materials remain subject to their respective legal terms and are not relicensed by this project.
+
+The CC BY-NC-SA licence allows MEGDA materials to be studied, cited, shared and adapted for non-commercial purposes, provided that appropriate attribution is given and derivative works are shared under the same terms.
+
+Commercial use, corporate adoption, commercial derivatives or incorporation into commercial products or services of **MEGDA content licensed under CC BY-NC-SA 4.0** require a separate agreement with the author. The MIT-licensed source code remains subject to the permissions granted by the MIT License.
+
+Use of the MEGDA name or project identity must not imply institutional endorsement, partnership or affiliation unless expressly agreed in writing.
