@@ -149,6 +149,16 @@ These texts are working drafts intended to evolve through legal review, public d
 - **Public Compute Commons** — a separate EuroHPC-based governance module.
 - **Systemic AI Power Index** — an exploratory concentration-of-power framework.
 
+## Authorship and independence
+
+MEGDA is an independent policy-design initiative conceived and developed by Maria Grazia D'Ascanio, outside any institutional or corporate mandate.
+
+The project is published openly in order to encourage scrutiny, discussion, technical stress-testing and possible experimentation.
+
+Contributions by companies, institutions, researchers, security professionals or other partners should be understood as review, testing, implementation or further development unless a different arrangement is expressly agreed in writing.
+
+Publication of MEGDA does not imply the assignment of authorship or ownership beyond the rights expressly granted under the repository's LICENSE. Any institutional endorsement, commercial use of the MEGDA name, or formal partnership should be agreed separately.
+
 ## Licence
 
 MIT for the code in this repository. EU legislation and official institutional materials remain subject to their own legal terms and are not relicensed by this project.
